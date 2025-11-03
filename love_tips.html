@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温馨提示</title>
+    <style>
+        /* 隐藏默认滚动条，保持页面简洁 */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        /* 弹窗样式 */
+        .tip-box {
+            position: absolute;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: "微软雅黑", sans-serif;
+            font-size: 16px;
+            text-align: center;
+            opacity: 0; /* 初始透明 */
+            transition: opacity 0.5s ease; /* 淡入淡出动画 */
+            z-index: 9999; /* 确保在最上层 */
+        }
+
+        /* 点击页面关闭所有弹窗的提示（可选） */
+        .info {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 弹窗容器（动态生成弹窗） -->
+    <div id="tipContainer"></div>
+
+    <!-- 底部提示 -->
+    <div class="info">点击页面可关闭所有弹窗哦~</div>
+
+    <script>
+        // 温馨提示语列表
+        const tips = [
+            "多喝热水~", "保持好心情~", "每天都要元气满满~",
+            "记得吃水果~", "好好爱自己~", "我想你了~",
+            "一路披荆斩棘~", "期待下次见面~", "分开是为了更好的相聚~",
+            "照顾好自己~", "早点休息~", "愿所有烦恼都消失~",
+            "别熬夜~", "今天过得开心嘛~", "天冷了，多穿衣服~",
+            "金榜题名~", "保持微笑呀~", "梦想成真~"
+        ];
+
+        // 弹窗背景色列表（柔和色调）
+        const colors = [
+            'lightpink', 'hotpink', 'lightblue', 'lightgreen', 'powderblue',
+            'lightcoral', 'skyblue', 'lightsteelblue', 'lightseagreen', 'lavender',
+            'paleturquoise', 'honeydew', 'lavenderblush', 'oldlace'
+        ];
+
+        // 生成随机弹窗
+        function createTip() {
+            // 创建弹窗元素
+            const tipBox = document.createElement('div');
+            tipBox.className = 'tip-box';
+
+            // 随机选择提示语和背景色
+            tipBox.innerText = tips[Math.floor(Math.random() * tips.length)];
+            tipBox.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // 随机位置（确保弹窗在屏幕内）
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const boxWidth = 200; // 弹窗宽度
+            const boxHeight = 80; // 弹窗高度
+            const x = Math.floor(Math.random() * (screenWidth - boxWidth));
+            const y = Math.floor(Math.random() * (screenHeight - boxHeight));
+            tipBox.style.left = `${x}px`;
+            tipBox.style.top = `${y}px`;
+            tipBox.style.width = `${boxWidth}px`;
+            tipBox.style.height = `${boxHeight}px`;
+            tipBox.style.lineHeight = `${boxHeight}px`; // 文字垂直居中
+
+            // 添加到页面
+            document.getElementById('tipContainer').appendChild(tipBox);
+
+            // 淡入效果（延迟10ms触发动画）
+            setTimeout(() => {
+                tipBox.style.opacity = '0.8';
+            }, 10);
+
+            // 3秒后自动淡出并移除
+            setTimeout(() => {
+                tipBox.style.opacity = '0';
+                setTimeout(() => {
+                    tipBox.remove();
+                }, 500); // 等待动画结束后移除
+            }, 3000);
+        }
+
+        // 定时生成弹窗（间隔1-3秒）
+        function startTips() {
+            createTip();
+            const nextTime = Math.random() * 2000 + 1000; // 1000-3000毫秒
+            setTimeout(startTips, nextTime);
+        }
+
+        // 点击页面关闭所有弹窗
+        document.body.addEventListener('click', () => {
+            const allTips = document.querySelectorAll('.tip-box');
+            allTips.forEach(tip => {
+                tip.style.opacity = '0';
+                setTimeout(() => tip.remove(), 500);
+            });
+        });
+
+        // 启动弹窗
+        startTips();
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温馨提示</title>
+    <style>
+        /* 隐藏默认滚动条，保持页面简洁 */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        /* 弹窗样式 */
+        .tip-box {
+            position: absolute;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: "微软雅黑", sans-serif;
+            font-size: 16px;
+            text-align: center;
+            opacity: 0; /* 初始透明 */
+            transition: opacity 0.5s ease; /* 淡入淡出动画 */
+            z-index: 9999; /* 确保在最上层 */
+        }
+
+        /* 点击页面关闭所有弹窗的提示（可选） */
+        .info {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 弹窗容器（动态生成弹窗） -->
+    <div id="tipContainer"></div>
+
+    <!-- 底部提示 -->
+    <div class="info">点击页面可关闭所有弹窗哦~</div>
+
+    <script>
+        // 温馨提示语列表
+        const tips = [
+            "多喝热水~", "保持好心情~", "每天都要元气满满~",
+            "记得吃水果~", "好好爱自己~", "我想你了~",
+            "一路披荆斩棘~", "期待下次见面~", "分开是为了更好的相聚~",
+            "照顾好自己~", "早点休息~", "愿所有烦恼都消失~",
+            "别熬夜~", "今天过得开心嘛~", "天冷了，多穿衣服~",
+            "金榜题名~", "保持微笑呀~", "梦想成真~"
+        ];
+
+        // 弹窗背景色列表（柔和色调）
+        const colors = [
+            'lightpink', 'hotpink', 'lightblue', 'lightgreen', 'powderblue',
+            'lightcoral', 'skyblue', 'lightsteelblue', 'lightseagreen', 'lavender',
+            'paleturquoise', 'honeydew', 'lavenderblush', 'oldlace'
+        ];
+
+        // 生成随机弹窗
+        function createTip() {
+            // 创建弹窗元素
+            const tipBox = document.createElement('div');
+            tipBox.className = 'tip-box';
+
+            // 随机选择提示语和背景色
+            tipBox.innerText = tips[Math.floor(Math.random() * tips.length)];
+            tipBox.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // 随机位置（确保弹窗在屏幕内）
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const boxWidth = 200; // 弹窗宽度
+            const boxHeight = 80; // 弹窗高度
+            const x = Math.floor(Math.random() * (screenWidth - boxWidth));
+            const y = Math.floor(Math.random() * (screenHeight - boxHeight));
+            tipBox.style.left = `${x}px`;
+            tipBox.style.top = `${y}px`;
+            tipBox.style.width = `${boxWidth}px`;
+            tipBox.style.height = `${boxHeight}px`;
+            tipBox.style.lineHeight = `${boxHeight}px`; // 文字垂直居中
+
+            // 添加到页面
+            document.getElementById('tipContainer').appendChild(tipBox);
+
+            // 淡入效果（延迟10ms触发动画）
+            setTimeout(() => {
+                tipBox.style.opacity = '0.8';
+            }, 10);
+
+            // 3秒后自动淡出并移除
+            setTimeout(() => {
+                tipBox.style.opacity = '0';
+                setTimeout(() => {
+                    tipBox.remove();
+                }, 500); // 等待动画结束后移除
+            }, 3000);
+        }
+
+        // 定时生成弹窗（间隔1-3秒）
+        function startTips() {
+            createTip();
+            const nextTime = Math.random() * 2000 + 1000; // 1000-3000毫秒
+            setTimeout(startTips, nextTime);
+        }
+
+        // 点击页面关闭所有弹窗
+        document.body.addEventListener('click', () => {
+            const allTips = document.querySelectorAll('.tip-box');
+            allTips.forEach(tip => {
+                tip.style.opacity = '0';
+                setTimeout(() => tip.remove(), 500);
+            });
+        });
+
+        // 启动弹窗
+        startTips();
+    </script>
+</body>
+</html>
